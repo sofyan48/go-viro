@@ -5,6 +5,7 @@ import (
 
 	"github.com/sofyan48/go-viro/consts"
 	"github.com/sofyan48/go-viro/pkg/requester"
+	"github.com/sofyan48/go-viro/pkg/utils"
 )
 
 type smsAPI struct {
@@ -28,10 +29,11 @@ func NewSmsAPI(senderID, apikey string) SMSInterface {
 }
 
 func (s *smsAPI) Single(to, text string) *smsAPI {
+	_, msidn := utils.OperatorChecker(to)
 	url := consts.BASE_URL + consts.SMS_URL_PATH_SINGLE
 	payload := map[string]string{
 		"from": s.senderID,
-		"to":   to,
+		"to":   msidn,
 		"text": text,
 	}
 	s.payload = payload
