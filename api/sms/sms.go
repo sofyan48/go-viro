@@ -27,7 +27,7 @@ func NewSmsAPI(senderID, apikey string) SMSInterface {
 	}
 }
 
-func (s *smsAPI) Single(to, text string) (*smsAPI, error) {
+func (s *smsAPI) Single(to, text string) *smsAPI {
 	url := consts.BASE_URL + consts.SMS_URL_PATH_SINGLE
 	payload := map[string]string{
 		"from": s.senderID,
@@ -36,7 +36,7 @@ func (s *smsAPI) Single(to, text string) (*smsAPI, error) {
 	}
 	s.payload = payload
 	s.url = url
-	return s, nil
+	return s
 }
 
 func (s *smsAPI) Send() ([]byte, error) {
