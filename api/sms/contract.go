@@ -6,4 +6,5 @@ type SMSInterface interface {
 	Single(to, text string) *smsAPI
 	Advance(payload []entity.AdvancePayload) *smsAPI
 	Multi(payload []entity.MultiPayload) *smsAPI
+	GetReports() ([]entity.ResultsFormat, error)
 }
