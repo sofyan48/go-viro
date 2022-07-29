@@ -9,6 +9,7 @@ go get github.com/sofyan48/go-viro
 ```
 
 Create Client
+---
 ``` golang
 package main
 
@@ -24,6 +25,7 @@ func main() {
 }
 ```
 Send Single SMS
+---
 ``` golang
 func single(client *viro.Viro) {
 	res, err := client.SMS().Single("62812479xxxx", "text to send").Send()
@@ -35,6 +37,7 @@ func single(client *viro.Viro) {
 }
 ```
 Send Advance SMS
+---
 ``` golang
 
 func advance(client *viro.Viro) {
@@ -55,6 +58,7 @@ func advance(client *viro.Viro) {
 ```
 
 Send Multi SMS
+---
 ``` golang
 func multi(client *viro.Viro) {
 	post1 := entity.MultiPayload{
