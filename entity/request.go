@@ -1,7 +1,5 @@
 package entity
 
-import "time"
-
 //go:generate easytags $GOFILE json
 
 type AdvancePayload struct {
@@ -15,11 +13,13 @@ type MultiPayload struct {
 }
 
 type LogsParameters struct {
-	To            string     `json:"to"`
-	GeneralStatus string     `json:"generalStatus"`
-	SentSince     *time.Time `json:"sentSince"`
-	SentUntil     *time.Time `json:"sentUntil"`
-	Limit         int        `json:"limit"`
-	MCC           string     `json:"mcc"`
-	MNC           string     `json:"mnc"`
+	To            string   `json:"to"`
+	BulkID        []string `json:"bulkId"`
+	MessageID     []string `json:"messageId"`
+	GeneralStatus string   `json:"generalStatus"`
+	SentSince     string   `json:"sentSince"`
+	SentUntil     string   `json:"sentUntil"`
+	Limit         int      `json:"limit"`
+	MCC           string   `json:"mcc"`
+	MNC           string   `json:"mnc"`
 }

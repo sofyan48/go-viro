@@ -9,9 +9,18 @@ import (
 
 func main() {
 	client := viro.NewViro("testing", "API_KEY")
-	single(client)
-	advance(client)
-	multi(client)
+	client.SMS().GetLogs(&entity.LogsParameters{
+		To:            "89999",
+		BulkID:        []string{"testing", "testing2"},
+		MessageID:     []string{"msgID", "msgID2"},
+		GeneralStatus: "",
+		Limit:         0,
+		MCC:           "",
+		MNC:           "",
+	})
+	// single(client)
+	// advance(client)
+	// multi(client)
 }
 
 func single(client *viro.Viro) {
