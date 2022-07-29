@@ -8,7 +8,7 @@ Install package via go module
 go get github.com/sofyan48/go-viro
 ```
 
-Example send SMS
+Create Client
 ``` golang
 package main
 
@@ -21,10 +21,10 @@ import (
 
 func main() {
 	client := viro.NewViro("testing", "API_KEY")
-	single(client)
-	advance(client)
 }
-
+```
+Send Single SMS
+``` golang
 func single(client *viro.Viro) {
 	res, err := client.SMS().Single("62812479xxxx", "text to send").Send()
 	if err != nil {
@@ -33,6 +33,9 @@ func single(client *viro.Viro) {
 	}
 	fmt.Println(res)
 }
+```
+Send Advance SMS
+``` golang
 
 func advance(client *viro.Viro) {
 	post1 := entity.AdvancePayload{
@@ -49,5 +52,26 @@ func advance(client *viro.Viro) {
 	}
 	fmt.Println(res)
 }
+```
 
+Send Multi SMS
+``` golang
+func multi(client *viro.Viro) {
+	post1 := entity.MultiPayload{
+		To: []string{
+			"081247930699",
+			"081247930699",
+		},
+		Text: "Text To Send",
+	}
+	postsData := []entity.MultiPayload{}
+	postsData = append(postsData, post1)
+	postsData = append(postsData, post1)
+	res, err := client.SMS().Multi(postsData).Send()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(res)
+}
 ```

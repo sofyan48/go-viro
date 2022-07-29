@@ -51,6 +51,31 @@ func (s *smsAPI) Advance(payload []entity.AdvancePayload) *smsAPI {
 	return s
 }
 
+func (s *smsAPI) Multi(payload []entity.MultiPayload) *smsAPI {
+	var postData []map[string]interface{}
+	for k, i := range payload {
+		var msisdn []string
+		for c := range i.To {
+			msisdn = append(msisdn, utils.SerializeNumber(i.To[c]))
+		}
+		postField := map[string]interface{}{
+			"from": s.senderID,
+			"destination": map[string]interface{}{
+				"to": msisdn,
+			},
+			"text":     i.Text,
+			"smsCount": k,
+		}
+		postData = append(postData, postField)
+	}
+	s.url = consts.BASE_URL + consts.SMS_URL_PATH_MULTI
+	s.payload = map[string]interface{}{
+		"messages": postData,
+	}
+	s.typeSend = "multi"
+	return s
+}
+
 func (s *smsAPI) Single(to, text string) *smsAPI {
 	msidn := utils.SerializeNumber(to)
 	url := consts.BASE_URL + consts.SMS_URL_PATH_SINGLE
