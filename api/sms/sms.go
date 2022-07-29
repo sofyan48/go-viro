@@ -15,6 +15,7 @@ type smsAPI struct {
 	header   map[string]string
 	payload  map[string]interface{}
 	url      string
+	typeSend string
 }
 
 func NewSmsAPI(senderID, apikey string) SMSInterface {
@@ -46,6 +47,7 @@ func (s *smsAPI) Advance(payload []entity.AdvancePayload) *smsAPI {
 	s.payload = map[string]interface{}{
 		"messages": postData,
 	}
+	s.typeSend = "advance"
 	return s
 }
 
@@ -60,13 +62,23 @@ func (s *smsAPI) Single(to, text string) *smsAPI {
 
 	s.payload = payload
 	s.url = url
+	s.typeSend = "single"
 	return s
 }
 
-func (s *smsAPI) Send() ([]byte, error) {
+func (s *smsAPI) Send() (*entity.ResultsFormat, error) {
 	payload, err := json.Marshal(s.payload)
 	if err != nil {
 		return nil, err
 	}
-	return s.http.POST(s.url, s.header, payload)
+	response, err := s.http.POST(s.url, s.header, payload)
+	resultFormat := &entity.ResultsFormat{}
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(response, resultFormat)
+	if err != nil {
+		return nil, err
+	}
+	return resultFormat, nil
 }

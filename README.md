@@ -31,7 +31,7 @@ func single(client *viro.Viro) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(string(res))
+	fmt.Println(res)
 }
 
 func advance(client *viro.Viro) {
@@ -47,7 +47,7 @@ func advance(client *viro.Viro) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(string(res))
+	fmt.Println(res)
 }
 
 ```
