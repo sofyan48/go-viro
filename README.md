@@ -8,7 +8,7 @@ Install package via go module
 go get github.com/sofyan48/go-viro
 ```
 
-Example single send SMS
+Example send SMS
 ``` golang
 package main
 
